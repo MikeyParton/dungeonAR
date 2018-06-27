@@ -15,6 +15,8 @@ import {
   ViroSpotLight
 } from 'react-viro';
 
+import Character from './components/Character/Character'
+
 export default class HelloWorldSceneAR extends Component {
 
   constructor() {
@@ -43,15 +45,7 @@ export default class HelloWorldSceneAR extends Component {
       <ViroARScene onTrackingUpdated={this._onInitialized}>
        <ViroAmbientLight color="#FFFFFF" intensity={400} />
          <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
-           <Viro3DObject
-             onClick={this.onClick}
-             source={require('./res/astroman.obj')}
-             resources={[require('./res/astroman.mtl')]}
-             position={[0, -5, -10]}
-             scale={[.05, .05, .05]}
-             rotation={[270, 0, 0]}
-             type="OBJ"
-           />
+           <Character name={"astroman"} position={[0, 0, -10]} />
          </ViroNode>
       </ViroARScene>
     );
