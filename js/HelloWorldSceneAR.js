@@ -46,14 +46,13 @@ export default class HelloWorldSceneAR extends Component {
         onCameraARHitTest={this.onMove}
         >
         <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
-         <ViroBox position={[0, -.5, -1]} scale={[.3, .3, .1]} materials={["wood"]} />
          <ViroAmbientLight color="#FFFFFF" intensity={400} />
          <Viro3DObject
             source={require('./res/astroman.obj')}
             resources={[require('./res/astroman.mtl')]}
-            position={[5, 5.5, 1.15]}
-            scale={[.1, .1, .1]}
-            rotation={[90, 90, 0]}
+            position={[0, -5, -5]}
+            scale={[.05, .05, .05]}
+            rotation={[270, 0, 0]}
             type="OBJ"
           />
       </ViroARScene>
