@@ -22,7 +22,6 @@ import Character from './components/Character/Character'
 import characters from './components/Character/characters'
 
 const characterNames = Object.keys(characters)
-console.log(characterNames)
 
 export default class HelloWorldSceneAR extends Component {
   state = {

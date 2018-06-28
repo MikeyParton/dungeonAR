@@ -5,13 +5,6 @@ export const WIN_COIN = 'WIN_COIN'
 export const LOSE_COIN = 'LOSE_COIN'
 
 const characters = {
-  astroman: {
-    model: require('./astroman/astroman.obj'),
-    material: require('./astroman/astroman.mtl'),
-    offset: [0, -5, 0],
-    rotationOffset: [270, 0, 0],
-    initialScale: [.05, .05, .05]
-  },
   mike: {
     model: require('./mike/mike.obj'),
     material: require('./mike/mike.mtl'),
@@ -94,6 +87,31 @@ const characters = {
             type: LOSE_MORALE,
             text: "Sorry I'm actually cutting atm",
             response: "You break Jonathan's generosity and he never offers anyone anything for the rest of his life"
+          },
+        ]
+      }
+    ]
+  },
+  jae: {
+    model: require('./jae/jae.obj'),
+    material: require('./jae/jae.mtl'),
+    offset: [0, -10, 0],
+    rotationOffset: [270, 0, 0],
+    initialScale: [.1, .1, .1],
+    clickActions: [
+      {
+        type: SAY,
+        text: "Jae says ....",
+        options: [
+          {
+            type: WIN_MORALE,
+            text: ".....",
+            response: "....."
+          },
+          {
+            type: LOSE_MORALE,
+            text: "....",
+            response: "...."
           },
         ]
       }
