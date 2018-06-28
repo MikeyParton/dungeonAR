@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Alert,
   AppRegistry,
   Image,
   Text,
@@ -9,27 +8,32 @@ import {
   PixelRatio,
   TouchableHighlight,
 } from 'react-native';
-import { Provider, Consumer } from './context'
 
 import { ViroARSceneNavigator } from 'react-viro';
 const sharedProps = { apiKey:"DA5E409B-E75D-41EB-9957-FD372A8A6194" }
 const InitialARScene = require('./js/HelloWorldSceneAR');
 
 export default class ViroSample extends Component {
-  constructor() {
-    super();
-    this.renderMenu = this.renderMenu.bind(this);
-    this.renderScene = this.renderScene.bind(this);
-    this.play = this.play.bind(this);
-    this.addCoinPoints = this.addCoinPoints.bind(this);
+  state = {
+    play : false,
+    sharedProps : sharedProps,
+    coins: 0
+  }
 
-    this.state = {
-      play : false,
-      sharedProps : sharedProps,
-      coinPoints: 1,
-      coin: false,
-      onCoinClick: this.addCoinPoints
-    }
+  play = () => {
+    this.setState({ play: true })
+  }
+
+  winCoin = () => {
+    let { coins } = this.state
+    coins++
+    this.setState({ coins })
+  }
+
+  loseCoin = () => {
+    let { coins } = this.state
+    coins--
+    this.setState({ coins })
   }
 
   render() {
@@ -37,37 +41,25 @@ export default class ViroSample extends Component {
     return this.renderScene();
   }
 
-  renderMenu() {
+  renderMenu = () => {
     return (
-      <Provider>
-        <View style={localStyles.outer} >
-          <View style={localStyles.inner} >
-            <Text style={localStyles.titleText}>
-              Welcome to DungeonFlare 2049
-              Are you ready ?
-            </Text>
-            <TouchableHighlight style={localStyles.buttons}
-              onPress={this.play}
-              underlayColor={'#68a0ff'} >
-              <Text style={localStyles.buttonText}>Play</Text>
-            </TouchableHighlight>
-          </View>
+      <View style={localStyles.outer} >
+        <View style={localStyles.inner} >
+          <Text style={localStyles.titleText}>
+            Welcome to DungeonFlare 2049
+            Are you ready ?
+          </Text>
+          <TouchableHighlight style={localStyles.buttons}
+            onPress={this.play}
+            underlayColor={'#68a0ff'} >
+            <Text style={localStyles.buttonText}>Play</Text>
+          </TouchableHighlight>
         </View>
-      </Provider>
+      </View>
     );
   }
 
-  play() {
-    this.setState({ play: true })
-  }
-
-  addCoinPoints() {
-    let coinPoints = this.state.coinPoints;
-    coinPoints++
-    this.setState({ coinPoints: coinPoints, coin: true })
-  }
-
-  renderScene() {
+  renderScene = () => {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ backgroundColor: "black", alignItems: 'center', height:80, padding: 10 }}>
@@ -87,11 +79,18 @@ export default class ViroSample extends Component {
               style={{width: 16, height: 16}}
               source={require('./js/components/GameInterface/Gold-Coin.png')}
             />
-            <Text style={{ fontSize: 14, color: "yellow", marginLeft:10 }}>{this.state.coinPoints}</Text>
+            <Text style={{ fontSize: 14, color: "yellow", marginLeft:10 }}>{this.state.coins}</Text>
           </View>
         </View>
           <ViroARSceneNavigator {...this.state.sharedProps}
-            initialScene={{scene: InitialARScene, passProps: {coin: this.state.coin, onCoinClick: this.state.onCoinClick}}}
+            initialScene={{
+              scene: InitialARScene,
+              passProps: {
+                coins: this.state.coins,
+                winCoin: this.winCoin,
+                loseCoin: this.loseCoin
+              }
+            }}
           />
       </View>
     );

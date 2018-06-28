@@ -5,7 +5,21 @@ import characters, { SAY, WIN_COIN, LOSE_COIN, WIN_MORALE, LOSE_MORALE } from '.
 import { randomElement } from 'js/helpers'
 
 export default class Character extends Component {
-  onClick = () =>  {
+  state = {
+    dragging: false
+  }
+
+  onClick = (stateValue, position, source) =>  {
+
+    // Only do something on a complete click
+    if (stateValue !== 3) return
+
+    // Dismiss after drag
+    if (this.state.dragging) {
+      this.props.dismiss()
+      this.setState({ dragging: false })
+      return
+    }
 
     // Pick a random clickAction
     const actions = Object.values(this.character.clickActions)
@@ -25,14 +39,20 @@ export default class Character extends Component {
 
             // Show the option's response
             selectedOption.response && Alert.alert(selectedOption.response)
+
           }
         })
         break;
       case WIN_COIN:
-        this.props.onCoinClick()
+        this.props.winCoin()
         break;
       default:
     }
+  }
+
+  onDrag = (dragToPos, source) => {
+    if (this.state.dragging) return
+    this.setState({ dragging: true })
   }
 
   render() {
@@ -55,7 +75,8 @@ export default class Character extends Component {
 
     return (
       <Viro3DObject
-        onClick={this.onClick}
+        onClickState={this.onClick}
+        onDrag={this.onDrag}
         source={options.model}
         resources={[options.material]}
         position={offset.map(function(value, index) {

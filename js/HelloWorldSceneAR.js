@@ -18,11 +18,28 @@ import {
   ViroSpotLight
 } from 'react-viro';
 
-import { Consumer } from '../context'
-
 import Character from './components/Character/Character'
+import characters from './components/Character/characters'
+
+const characterNames = Object.keys(characters)
+console.log(characterNames)
 
 export default class HelloWorldSceneAR extends Component {
+  state = {
+    characterIndex: 0
+  }
+
+  nextCharacter = () => {
+    let { characterIndex } = this.state
+    characterIndex ++
+    if (characterIndex == characterNames.length) {
+      characterIndex = 0
+    }
+
+    console.log(characterIndex)
+    this.setState({ characterIndex })
+  }
+
   _onInitialized = (state, reason) => {
     if (state == ViroConstants.TRACKING_NORMAL) {
       // Nothing to see here, all is well in the world
@@ -33,23 +50,21 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     return (
-      <Consumer>
-        {({ addCoin }) => {
-          return (
-          <ViroARScene onTrackingUpdated={this._onInitialized}>
-            <ViroAmbientLight color="#FFFFFF" intensity={400} />
-            <Character name="jonathan" position={[0, 0, -10]} />
-            <Character
-              name="coin"
-              position={[0, 0, -8]}
-              onCoinClick={this.props.onCoinClick}
-            />
-           </ViroARScene>
-          )
-        }
-        }
-      </Consumer>
-    );
+      <ViroARScene onTrackingUpdated={this._onInitialized}>
+        <ViroAmbientLight color="#FFFFFF" intensity={400} />
+        <Character
+          name={characterNames[this.state.characterIndex]}
+          position={[0, 0, -10]}
+          dismiss={this.nextCharacter}
+        />
+        <Character
+          name="coin"
+          position={[0, 0, -8]}
+          winCoin={this.props.winCoin}
+          loseCoin={this.props.loseCoin}
+        />
+       </ViroARScene>
+    )
   }
 }
 
