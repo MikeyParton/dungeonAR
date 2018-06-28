@@ -1,16 +1,34 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
+import { ActionSheetIOS, Alert } from 'react-native';
 import { Viro3DObject } from 'react-viro';
-import characters from './characters';
+import characters, { SAY, WIN_COIN, LOSE_COIN, WIN_MORALE, LOSE_MORALE } from './characters';
+import { randomElement } from 'js/helpers'
 
 export default class Character extends Component {
   onClick = () =>  {
-    const action = this.character.clickActions[0]
-    switch (action.type) {
-      case 'say':
-        Alert.alert(action.text)
+
+    // Pick a random clickAction
+    const actions = Object.values(this.character.clickActions)
+    const { text, type, options } = randomElement(actions)
+
+    switch (type) {
+      case SAY:
+        const optionLabels = options.map(option => option.text)
+        ActionSheetIOS.showActionSheetWithOptions({
+          title: text,
+          options: ['Cancel', ...optionLabels],
+          cancelButtonIndex: 0,
+        },
+        (buttonIndex) => {
+          if (buttonIndex > 0) {
+            const selectedOption = options[buttonIndex - 1]
+
+            // Show the option's response
+            selectedOption.response && Alert.alert(selectedOption.response)
+          }
+        })
         break;
-      case 'coinCollected':
+      case WIN_COIN:
         this.props.onCoinClick()
         break;
       default:
@@ -19,7 +37,6 @@ export default class Character extends Component {
 
   render() {
     this.character = characters[this.props.name];
-
     const options = characters[this.props.name];
 
     if (!options.model) return null;

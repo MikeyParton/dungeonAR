@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet, Alert, ActionSheetIOS } from 'react-native';
 
 import {
   ViroNode,
@@ -23,25 +23,12 @@ import { Consumer } from '../context'
 import Character from './components/Character/Character'
 
 export default class HelloWorldSceneAR extends Component {
-
-  constructor() {
-    super()
-
-    this.state = { text : "Initializing AR..." };
-
-    this._onInitialized = this._onInitialized.bind(this);
-    this.onClick = this.onClick.bind(this);
-  }
-
-  _onInitialized(state, reason) {
+  _onInitialized = (state, reason) => {
     if (state == ViroConstants.TRACKING_NORMAL) {
+      // Nothing to see here, all is well in the world
     } else if (state == ViroConstants.TRACKING_NONE) {
-      // Handle loss of tracking
+      Alert.alert('Error, everything is broken')
     }
-  }
-
-  onClick() {
-    Alert.alert('What do you want?')
   }
 
   render() {
@@ -50,17 +37,13 @@ export default class HelloWorldSceneAR extends Component {
         {({ addCoin }) => {
           return (
           <ViroARScene onTrackingUpdated={this._onInitialized}>
-           <ViroAmbientLight color="#FFFFFF" intensity={400} />
-               <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
-                <Character name="jonathan" position={[0, 0, -3]} />
-               </ViroNode>
-             <ViroNode position={[0, 0, -10]} dragType="FixedToWorld" onDrag={() => {}}>
-               <Character
-                 name="coin"
-                 position={[0, 0, -8]}
-                 onCoinClick={this.props.onCoinClick}
-               />
-             </ViroNode>
+            <ViroAmbientLight color="#FFFFFF" intensity={400} />
+            <Character name="jonathan" position={[0, 0, -10]} />
+            <Character
+              name="coin"
+              position={[0, 0, -8]}
+              onCoinClick={this.props.onCoinClick}
+            />
            </ViroARScene>
           )
         }
