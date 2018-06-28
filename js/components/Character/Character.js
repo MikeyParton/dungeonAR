@@ -43,6 +43,7 @@ export default class Character extends Component {
         scale={initialScale.map(function(value, index) {
           return value * scale[index]
         })}
+        ref={this.props.innerRef}
         type="OBJ"
       />
     );

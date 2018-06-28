@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  Alert,
   Text,
   View,
   StyleSheet,
@@ -18,7 +19,7 @@ export default class ViroSample extends Component {
 
     this.state = {
       play : false,
-      sharedProps : sharedProps
+      sharedProps : sharedProps,
     }
 
     this.renderMenu = this.renderMenu.bind(this);
@@ -56,7 +57,7 @@ export default class ViroSample extends Component {
   renderScene() {
     return (
       <ViroARSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialARScene}} />
+        initialScene={{scene: InitialARScene, passProps: { lol: this.state.lol, setLol: this.state.setLol }}} />
     );
   }
 }

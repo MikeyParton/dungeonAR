@@ -2,9 +2,11 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, Alert } from 'react-native';
+import { Pedometer } from "expo";
 
 import {
   ViroNode,
+  ViroARPlane,
   ViroARScene,
   ViroText,
   ViroConstants,
@@ -18,36 +20,42 @@ import {
 import Character from './components/Character/Character'
 
 export default class HelloWorldSceneAR extends Component {
+  state = {
+    startDate: null,
+    endDate: null,
+    numberOfSteps: 0,
+    distance: 0,
+    floorsAscended: 0,
+    floorsDescended: 0,
+    currentPace: 0,
+    currentCadence: 0,
+  };
 
-  constructor() {
-    super()
-
-    this.state = { text : "Initializing AR..." };
-
-    this._onInitialized = this._onInitialized.bind(this);
-    this.onClick = this.onClick.bind(this);
-  }
-
-  _onInitialized(state, reason) {
+  _onInitialized = (state, reason) => {
     if (state == ViroConstants.TRACKING_NORMAL) {
-      this.setState({ text : "Hello World" });
     } else if (state == ViroConstants.TRACKING_NONE) {
-      // Handle loss of tracking
     }
   }
 
-  onClick() {
-    Alert.alert('What do you want?')
+  componentDidMount() {
+    // const today = new Date();
+    // today.setHours(0,0,0,0);
+    //
+    // Pedometer.startPedometerUpdatesFromDate(today.toTime(), (motionData) => {
+    //   console.log("motionData: " + motionData);
+    //   this.setState(motionData);
+    // })
   }
 
   render() {
     return (
-        <ViroARScene onTrackingUpdated={this._onInitialized}>
-         <ViroAmbientLight color="#FFFFFF" intensity={400} />
-           <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
-             <Character name="jonathan" position={[0, 0, -3]} />
-           </ViroNode>
-        </ViroARScene>
+      <ViroARScene onTrackingUpdated={this._onInitialized}>
+      <ViroAmbientLight color="#FFFFFF" intensity={400} />
+        <ViroARPlane minHeight={.5} minWidth={.5} alignment={"Horizontal"}>
+          <ViroBox position={[0, .25, 0]} scale={[.5, .5, .5]} />
+        </ViroARPlane>
+        {/* <Character name="jonathan" position={[0, 0, -3]} innerRef={(node) => { this.characterRef = node }}/> */}
+      </ViroARScene>
     );
   }
 }
