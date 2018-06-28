@@ -1,5 +1,3 @@
-import { Alert } from 'react-native'
-
 const characters = {
   astroman: {
     model: require('./astroman/astroman.obj'),
@@ -18,9 +16,9 @@ const characters = {
     offset: [0, -10, 0],
     rotationOffset: [270, 0, 0],
     initialScale: [.1, .1, .1],
-    onClick: function() {
-      Alert.alert("Parlez vous Francais?")
-    }
+    clickActions: [
+      { type: 'say', text: 'Parlez vous Francais?' }
+    ]
   },
   coin: {
     model: require('./coin/coin.obj'),
@@ -30,7 +28,10 @@ const characters = {
       name:'rotateCoin',
       run: true,
       loop: true
-    }
+    },
+    clickActions: [
+      { type: 'coinCollected'}
+    ]
   }
 };
 

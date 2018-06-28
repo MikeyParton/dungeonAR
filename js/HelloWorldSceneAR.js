@@ -16,6 +16,8 @@ import {
   ViroSpotLight
 } from 'react-viro';
 
+import { Consumer } from '../context'
+
 import Character from './components/Character/Character'
 
 export default class HelloWorldSceneAR extends Component {
@@ -31,7 +33,6 @@ export default class HelloWorldSceneAR extends Component {
 
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
-      this.setState({ text : "Hello World" });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
     }
@@ -43,17 +44,26 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     return (
-        <ViroARScene onTrackingUpdated={this._onInitialized}>
-         <ViroAmbientLight color="#FFFFFF" intensity={400} />
-           <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
-            <Character name="jonathan" position={[0, 0, -3]} />
-           </ViroNode>
-           <ViroNode position={[0, 0, -10]} dragType="FixedToWorld" onDrag={() => {}}>
-             <Character
-               name="coin"
-               position={[0, 0, -8]}/>
-           </ViroNode>
-        </ViroARScene>
+      <Consumer>
+        {({ addCoin }) => {
+          return (
+          <ViroARScene onTrackingUpdated={this._onInitialized}>
+           <ViroAmbientLight color="#FFFFFF" intensity={400} />
+             <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
+              <Character name="jonathan" position={[0, 0, -3]} />
+             </ViroNode>
+             <ViroNode position={[0, 0, -10]} dragType="FixedToWorld" onDrag={() => {}}>
+               <Character
+                 name="coin"
+                 position={[0, 0, -8]}
+                 onCoinClick={this.props.onCoinClick}
+               />
+             </ViroNode>
+           </ViroARScene>
+          )
+        }
+        }
+      </Consumer>
     );
   }
 }

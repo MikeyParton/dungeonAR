@@ -4,13 +4,17 @@ import { Viro3DObject } from 'react-viro';
 import characters from './characters';
 
 export default class Character extends Component {
-  constructor() {
-    super()
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick() {
-    this.character.onClick && this.character.onClick()
+  onClick = () =>  {
+    const action = this.character.clickActions[0]
+    switch (action.type) {
+      case 'say':
+        Alert.alert(action.text)
+        break;
+      case 'coinCollected':
+        this.props.onCoinClick()
+        break;
+      default:
+    }
   }
 
   render() {
