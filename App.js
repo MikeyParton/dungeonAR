@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  Image,
   Text,
   View,
   StyleSheet,
@@ -55,8 +56,27 @@ export default class ViroSample extends Component {
 
   renderScene() {
     return (
-      <ViroARSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialARScene}} />
+      <View style={{ flex: 1 }}>
+        <View style={{ backgroundColor: "black", alignItems: 'center', height:80, padding: 10 }}>
+          <Text style={{ fontSize: 12, color: "white" }}>Stats:</Text>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Image
+              style={{width: 16, height: 16 }}
+              source={require('./js/components/GameInterface/heart.png')}
+            />
+            <View style={{ backgroundColor: "red", height:10, width:'50%', margin:2, borderWidth:1, borderColor:'white' }} />
+          </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Image
+              style={{width: 16, height: 16}}
+              source={require('./js/components/GameInterface/Gold-Coin.png')}
+            />
+            <Text style={{ fontSize: 12, color: "yellow", marginLeft:10 }}>1</Text>
+          </View>
+        </View>
+          <ViroARSceneNavigator {...this.state.sharedProps}
+            initialScene={{ scene: InitialARScene }} />
+      </View>
     );
   }
 }

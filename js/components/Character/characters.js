@@ -9,7 +9,7 @@ const characters = {
   mike: {
     model: require('./mike/mike.obj'),
     material: require('./mike/mike.mtl')
-  }
+  },
   coin: {
     model: require('./coin/coin.obj'),
     material: require('./coin/coin.mtl')
