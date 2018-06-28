@@ -1,3 +1,5 @@
+import { Alert } from 'react-native'
+
 const characters = {
   astroman: {
     model: require('./astroman/astroman.obj'),
