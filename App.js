@@ -71,7 +71,10 @@ export default class ViroSample extends Component {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ backgroundColor: "black", alignItems: 'center', height:80, padding: 10 }}>
-          <Text style={{ fontSize: 12, color: "white" }}>Stats:</Text>
+          <Image
+            style={{width: "30%", height: "30%", marginBottom: 10}}
+            source={require('./js/components/GameInterface/stats1.png')}
+          />
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Image
               style={{width: 16, height: 16 }}
@@ -84,7 +87,7 @@ export default class ViroSample extends Component {
               style={{width: 16, height: 16}}
               source={require('./js/components/GameInterface/Gold-Coin.png')}
             />
-            <Text style={{ fontSize: 12, color: "yellow", marginLeft:10 }}>{this.state.coinPoints}</Text>
+            <Text style={{ fontSize: 14, color: "yellow", marginLeft:10 }}>{this.state.coinPoints}</Text>
           </View>
         </View>
           <ViroARSceneNavigator {...this.state.sharedProps}
