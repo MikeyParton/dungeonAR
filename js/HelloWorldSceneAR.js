@@ -13,6 +13,8 @@ import {
   ViroMaterials,
   Viro3DObject,
   ViroAmbientLight,
+  ViroARImageMarker,
+  ViroARTrackingTargets,
   ViroSpotLight
 } from 'react-viro';
 
@@ -49,9 +51,13 @@ export default class HelloWorldSceneAR extends Component {
           return (
           <ViroARScene onTrackingUpdated={this._onInitialized}>
            <ViroAmbientLight color="#FFFFFF" intensity={400} />
-             <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
-              <Character name="jonathan" position={[0, 0, -3]} />
-             </ViroNode>
+           <ViroARImageMarker
+             target={'ignite'}
+           >
+               <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
+                <Character name="jonathan" position={[0, 0, -3]} />
+               </ViroNode>
+             </ViroARImageMarker>
              <ViroNode position={[0, 0, -10]} dragType="FixedToWorld" onDrag={() => {}}>
                <Character
                  name="coin"
