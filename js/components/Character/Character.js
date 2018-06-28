@@ -10,22 +10,24 @@ export default class Character extends Component {
   }
 
   onClick() {
-    Alert.alert('What do you want?')
+    this.character.onClick && this.character.onClick()
   }
 
   render() {
+    this.character = characters[this.props.name];
+
     const options = characters[this.props.name];
 
     if (!options.model) return null;
 
-    const offset = this.props.rotationOffset || [0, 0, 0]
+    const offset = options.offset || [0, 0, 0]
     const position = this.props.position || [0, 0, 0]
 
-    const rotationOffset = this.props.rotationOffset || [0, 0, 0]
+    const rotationOffset = options.rotationOffset || [0, 0, 0]
     const rotation = this.props.rotation || [0, 0, 0]
 
     const initialScale = options.initialScale || [1, 1, 1]
-    const scale = this.props.rotation || [1, 1, 1]
+    const scale = this.props.scale || [1, 1, 1]
 
     return (
       <Viro3DObject

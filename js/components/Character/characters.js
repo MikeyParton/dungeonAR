@@ -1,3 +1,5 @@
+import { Alert } from 'react-native'
+
 const characters = {
   astroman: {
     model: require('./astroman/astroman.obj'),
@@ -8,8 +10,14 @@ const characters = {
   },
   mike: {
     model: require('./mike/mike.obj'),
-    material: require('./mike/mike.mtl')
-  }
+    material: require('./mike/mike.mtl'),
+    offset: [0, -10, 0],
+    rotationOffset: [270, 0, 0],
+    initialScale: [.1, .1, .1],
+    onClick: function() {
+      Alert.alert("Hey man, what's up?")
+    }
+  },
   coin: {
     model: require('./coin/coin.obj'),
     material: require('./coin/coin.mtl')

@@ -42,12 +42,12 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     return (
-      <ViroARScene onTrackingUpdated={this._onInitialized}>
-       <ViroAmbientLight color="#FFFFFF" intensity={400} />
-         <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
-           <Character name={"astroman"} position={[0, 0, -10]} />
-         </ViroNode>
-      </ViroARScene>
+        <ViroARScene onTrackingUpdated={this._onInitialized}>
+         <ViroAmbientLight color="#FFFFFF" intensity={400} />
+           <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
+             <Character name="mike" position={[0, 0, -3]} />
+           </ViroNode>
+        </ViroARScene>
     );
   }
 }
