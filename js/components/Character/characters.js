@@ -18,6 +18,16 @@ const characters = {
       Alert.alert("Hey man, what's up?")
     }
   },
+  jonathan: {
+    model: require('./jonathan/jonathan.obj'),
+    material: require('./jonathan/jonathan.mtl'),
+    offset: [0, -10, 0],
+    rotationOffset: [270, 0, 0],
+    initialScale: [.1, .1, .1],
+    onClick: function() {
+      Alert.alert("Parlez vous Francais?")
+    }
+  },
   coin: {
     model: require('./coin/coin.obj'),
     material: require('./coin/coin.mtl')
