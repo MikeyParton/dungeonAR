@@ -46,9 +46,7 @@ export default class HelloWorldSceneAR extends Component {
         <ViroARScene onTrackingUpdated={this._onInitialized}>
          <ViroAmbientLight color="#FFFFFF" intensity={400} />
            <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
-             <Character
-               name="mike"
-               position={[0, 0, -3]}/>
+            <Character name="jonathan" position={[0, 0, -3]} />
            </ViroNode>
            <ViroNode position={[0, 0, -10]} dragType="FixedToWorld" onDrag={() => {}}>
              <Character
