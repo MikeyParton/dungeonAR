@@ -14,7 +14,13 @@ const characters = {
   },
   coin: {
     model: require('./coin/coin.obj'),
-    material: require('./coin/coin.mtl')
+    material: require('./coin/coin.mtl'),
+    initialScale: [.05, .05, .05],
+    animation: {
+      name:'rotateCoin',
+      run: true,
+      loop: true
+    }
   }
 };
 

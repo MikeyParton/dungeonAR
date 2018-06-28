@@ -29,6 +29,9 @@ export default class Character extends Component {
     const initialScale = options.initialScale || [1, 1, 1]
     const scale = this.props.scale || [1, 1, 1]
 
+    const initialAnimation = options.animation || {}
+    const animation = this.props.animation || {}
+
     return (
       <Viro3DObject
         onClick={this.onClick}
@@ -44,6 +47,7 @@ export default class Character extends Component {
           return value * scale[index]
         })}
         type="OBJ"
+        animation={initialAnimation}
       />
     );
   }

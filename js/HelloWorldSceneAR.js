@@ -5,6 +5,7 @@ import { StyleSheet, Alert } from 'react-native';
 
 import {
   ViroNode,
+  ViroAnimations,
   ViroARScene,
   ViroText,
   ViroConstants,
@@ -45,11 +46,22 @@ export default class HelloWorldSceneAR extends Component {
         <ViroARScene onTrackingUpdated={this._onInitialized}>
          <ViroAmbientLight color="#FFFFFF" intensity={400} />
            <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => {}}>
-             <Character name="mike" position={[0, 0, -3]} />
+             <Character
+               name="mike"
+               position={[0, 0, -3]}/>
+           </ViroNode>
+           <ViroNode position={[0, 0, -10]} dragType="FixedToWorld" onDrag={() => {}}>
+             <Character
+               name="coin"
+               position={[0, 0, -8]}/>
            </ViroNode>
         </ViroARScene>
     );
   }
 }
+
+ViroAnimations.registerAnimations({
+  rotateCoin:{properties:{rotateY:"+=45"}, duration:250}
+})
 
 module.exports = HelloWorldSceneAR;

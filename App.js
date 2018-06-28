@@ -64,7 +64,7 @@ export default class ViroSample extends Component {
               style={{width: 16, height: 16 }}
               source={require('./js/components/GameInterface/heart.png')}
             />
-            <View style={{ backgroundColor: "red", height:10, width:'50%', margin:2, borderWidth:1, borderColor:'white' }} />
+            <View style={{ backgroundColor: "red", height:10, width:'50%', marginLeft:10, margin:2, borderWidth:1, borderColor:'white' }} />
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Image
