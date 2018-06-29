@@ -13,13 +13,12 @@ import {
   ViroMaterials,
   Viro3DObject,
   ViroAmbientLight,
-  ViroARImageMarker,
-  ViroARTrackingTargets,
   ViroSpotLight
 } from 'react-viro';
 
-import Character from './components/Character/Character'
-import characters from './components/Character/characters'
+import Character from './components/Character/Character';
+import characters from './components/Character/characters';
+import Sticker from './components/Sticker/Sticker';
 
 const characterNames = Object.keys(characters)
 console.log(characterNames)
@@ -52,6 +51,7 @@ export default class HelloWorldSceneAR extends Component {
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
         <ViroAmbientLight color="#FFFFFF" intensity={400} />
+        <Sticker />
         <Character
           name={characterNames[this.state.characterIndex]}
           position={[0, 0, -10]}

@@ -89,7 +89,7 @@ export default class Character extends Component {
           return value * scale[index]
         })}
         type="OBJ"
-        animation={initialAnimation}
+        animation={animation}
       />
     );
   }
