@@ -12,6 +12,7 @@ import Character from './../Character/Character';
 
 ViroARTrackingTargets.createTargets({
   sticker: {
+    reset: false,
     orientation: 'Up',
     physicalWidth: 0.07,
     source: require('../../res/ignite.jpg')
@@ -20,7 +21,7 @@ ViroARTrackingTargets.createTargets({
 
 ViroAnimations.registerAnimations({
   scaleUp: {
-    properties: { scaleX: 1, scaleY: 1, scaleZ: 1 },
+    properties: { scaleX: 0.1, scaleY: 0.1, scaleZ: 0.1 },
     duration: 500,
     easing: 'bounce'
   },
@@ -28,13 +29,28 @@ ViroAnimations.registerAnimations({
     properties: { scaleX: 0, scaleY: 0, scaleZ: 0 },
     duration: 200,
     easing: 'bounce'
-  },
-  sticker: [['scaleUp', 'scaleDown']]
+  }
 });
 
 export default class Sticker extends Component {
+  state = {
+    name: ['jonathan', 'mike', 'jae'][
+      Math.floor(Math.random() * Math.floor(2))
+    ],
+    visible: false,
+    animate: false
+  };
+
   handleAnchorFound = () => {
-    // Alert.alert('lol');
+    this.setState({ visible: true, animate: true });
+  };
+
+  handleDismiss = () => {
+    this.setState({ visible: false, animate: true });
+  };
+
+  handleFinish = () => {
+    this.setState({ animate: false });
   };
 
   render() {
@@ -44,12 +60,14 @@ export default class Sticker extends Component {
         onAnchorFound={this.handleAnchorFound}
       >
         <Character
-          animation={{ name: 'sticker' }}
-          position={[1, 1, -10]}
-          dismiss={() => {
-
+          animation={{
+            name: this.state.visible ? 'scaleUp' : 'scaleDown',
+            onFinish: this.handleFinish,
+            run: this.state.animate
           }}
-          name="jonathan"
+          dismiss={this.handleDismiss}
+          position={[1, 1, -10]}
+          name={this.state.name}
         />
       </ViroARImageMarker>
     );
