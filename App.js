@@ -25,6 +25,10 @@ export default class ViroSample extends Component {
     this.setState({ play: true })
   }
 
+  playAgain = () => {
+    this.setState({ play: true, hearts: 5, coins: 0 })
+  }
+
   winCoin = () => {
     let { coins } = this.state
     coins++
@@ -55,6 +59,7 @@ export default class ViroSample extends Component {
 
   render() {
     if (!this.state.play) return this.renderMenu()
+    if (this.state.hearts === 0) return this.renderGameOver()
     return this.renderScene();
   }
 
@@ -70,6 +75,24 @@ export default class ViroSample extends Component {
             onPress={this.play}
             underlayColor={'#68a0ff'} >
             <Text style={localStyles.buttonText}>Play</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    );
+  }
+
+  renderGameOver = () => {
+    return (
+      <View style={localStyles.outer} >
+        <View style={localStyles.inner} >
+          <Image
+            style={{marginBottom: 10}}
+            source={require('./js/components/GameInterface/gameOver1.png')}
+          />
+          <TouchableHighlight style={localStyles.buttons}
+            onPress={this.playAgain}
+            underlayColor={'#68a0ff'} >
+            <Text style={localStyles.buttonText}>Play Again?</Text>
           </TouchableHighlight>
         </View>
       </View>
