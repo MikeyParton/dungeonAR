@@ -29,7 +29,7 @@ const characters = {
           {
             type: LOSE_MORALE,
             text: "What do you even do here?",
-            response: "I do .... lots of ... things"
+            response: "Mike says: I do .... lots of ... things"
           }
         ]
       },
