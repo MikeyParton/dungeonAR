@@ -21,7 +21,6 @@ import characters from './components/Character/characters';
 import Sticker from './components/Sticker/Sticker';
 
 const characterNames = Object.keys(characters)
-console.log(characterNames)
 
 export default class HelloWorldSceneAR extends Component {
   state = {

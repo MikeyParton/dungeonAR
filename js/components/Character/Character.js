@@ -2,28 +2,79 @@ import React, { Component } from 'react';
 import { ActionSheetIOS, Alert } from 'react-native';
 import { Viro3DObject } from 'react-viro';
 import characters, { SAY, WIN_COIN, LOSE_COIN, WIN_MORALE, LOSE_MORALE } from './characters';
-import { randomElement } from 'js/helpers'
+import { randomElement, sumArrays, multiplyArrays, subtractArrays } from 'js/helpers'
+
+const SWIPE_DURATION_THRESHOLD = 250
+const SWIPE_DISTANCE_THRESHOLD = 1
+const UP = 'UP'
+const DOWN = 'DOWN'
 
 export default class Character extends Component {
   state = {
-    dragging: false
+    dragging: false,
+    mouseDown: false,
+    swipeStartTime: null,
+    swipeOrigin: null
   }
 
   onClick = (stateValue, position, source) =>  {
+    let { swipeDirection } = this.state
+    const { swipeStartTime, swipeOrigin, mouseDown } = this.state
 
-    // Only do something on a complete click
-    if (stateValue !== 3) return
+    // On mouseDown start record time and origin so we can tell if it was a swipe
+    if (stateValue === 1 && !mouseDown) {
+      const swipeStartTime = new Date()
+      this.setState({
+        swipeDirection: null,
+        swipeStartTime,
+        swipeOrigin: position,
+        mouseDown: true
+      })
 
-    // Dismiss after drag
-    if (this.state.dragging) {
-      this.props.dismiss()
-      this.setState({ dragging: false })
       return
     }
 
+    // On mouseUp compare position and time to determine if it was a swipe
+    if (stateValue === 2 && mouseDown) {
+      const swipeEndTime = new Date()
+
+      const postitionDiff = subtractArrays(position, swipeOrigin)
+      const swipeDuration = swipeEndTime - swipeStartTime
+
+      if (swipeDuration < SWIPE_DURATION_THRESHOLD) {
+        if (postitionDiff[1] > SWIPE_DISTANCE_THRESHOLD) {
+          swipeDirection = UP
+        }
+
+        if (postitionDiff[1] < -SWIPE_DISTANCE_THRESHOLD) {
+          swipeDirection = DOWN
+        }
+      }
+
+      this.setState({
+        swipeDirection,
+        swipeStartTime: null,
+        swipeOrigin: null,
+        mouseDown: false
+      })
+
+      return
+    }
+
+    if (swipeDirection == UP) {
+      return
+    }
+
+    if (swipeDirection == DOWN) {
+      this.props.dismiss()
+      return
+    }
+
+    const availableActions =this.character.clickActions
+    if (!availableActions) return
+
     // Pick a random clickAction
-    const actions = Object.values(this.character.clickActions)
-    const { text, type, options } = randomElement(actions)
+    const { text, type, options } = randomElement(Object.values(availableActions))
 
     switch (type) {
       case SAY:
@@ -50,11 +101,6 @@ export default class Character extends Component {
     }
   }
 
-  onDrag = (dragToPos, source) => {
-    if (this.state.dragging) return
-    this.setState({ dragging: true })
-  }
-
   render() {
     this.character = characters[this.props.name];
     const options = characters[this.props.name];
@@ -76,18 +122,11 @@ export default class Character extends Component {
     return (
       <Viro3DObject
         onClickState={this.onClick}
-        onDrag={this.onDrag}
         source={options.model}
         resources={[options.material]}
-        position={offset.map(function(value, index) {
-          return value + position[index]
-        })}
-        rotation={rotationOffset.map(function(value, index) {
-          return value + rotation[index]
-        })}
-        scale={initialScale.map(function(value, index) {
-          return value * scale[index]
-        })}
+        position={sumArrays(offset, position)}
+        rotation={sumArrays(rotationOffset, rotation)}
+        scale={multiplyArrays(initialScale, scale)}
         type="OBJ"
         animation={animation}
       />
