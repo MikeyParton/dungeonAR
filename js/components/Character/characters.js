@@ -158,9 +158,55 @@ const characters = {
   unicorn: {
     model: require('./unicorn/model-triangulated.obj'),
     material: require('./unicorn/materials.mtl'),
-    initialScale: [2, 2, 2],
+    initialScale: [5, 5, 5],
     offset: [0, -2, 0],
-    clickActions: []
+    clickActions: [
+      {
+        type: SAY,
+        text: "Unicorn says: What did the Unicorn tell the carrot?",
+        options: [
+          {
+            type: WIN_MORALE,
+            text: "I like this joke",
+            response: "U-No-Corn!"
+          },
+          {
+            type: LOSE_MORALE,
+            text: "No thanks..",
+            response: "U-No-Corn!"
+          },
+        ]
+      }
+    ]
+  },
+  poop: {
+    model: require('./poop/model-triangulated.obj'),
+    material: require('./poop/materials.mtl'),
+    initialScale: [4, 4, 4],
+    offset: [0, -2, 0],
+    animation: {
+      name:'rotateCoin',
+      run: true,
+      loop: true
+    },
+    clickActions: [
+      {
+        type: SAY,
+        text: "What happens when you eat too much pizza?",
+        options: [
+          {
+            type: WIN_MORALE,
+            text: "?!@@$SFAS",
+            response: "Poopy Time 💩"
+          },
+          {
+            type: LOSE_MORALE,
+            text: "Nothing",
+            response: "💩💩💩"
+          },
+        ]
+      }
+    ]
   }
 };
 

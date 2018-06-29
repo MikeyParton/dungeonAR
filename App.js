@@ -86,8 +86,8 @@ export default class ViroSample extends Component {
       <View style={localStyles.outer} >
         <View style={localStyles.inner} >
           <Image
-            style={{width: "30%", marginBottom: 10}}
-            source={require('./js/components/GameInterface/gameOver.png')}
+            style={{marginBottom: 10}}
+            source={require('./js/components/GameInterface/gameOver1.png')}
           />
           <TouchableHighlight style={localStyles.buttons}
             onPress={this.playAgain}
