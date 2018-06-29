@@ -53,7 +53,10 @@ export default class HelloWorldSceneAR extends Component {
         <Character
           name={characterNames[this.state.characterIndex]}
           position={[0, 0, -10]}
+          loseCoin={this.props.loseCoin}
           dismiss={this.nextCharacter}
+          winHeart={this.props.winHeart}
+          loseHeart={this.props.loseHeart}
         />
         <Character
           name="coin"

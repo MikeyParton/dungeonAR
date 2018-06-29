@@ -91,6 +91,18 @@ export default class Character extends Component {
             // Show the option's response
             selectedOption.response && Alert.alert(selectedOption.response)
 
+            switch (selectedOption.type) {
+              case LOSE_COIN:
+                this.props.loseCoin()
+                break;
+              case LOSE_MORALE:
+                this.props.loseHeart()
+                break;
+              case WIN_MORALE:
+                this.props.winHeart()
+                break;
+              default:
+            }
           }
         })
         break;
@@ -128,7 +140,7 @@ export default class Character extends Component {
         rotation={sumArrays(rotationOffset, rotation)}
         scale={multiplyArrays(initialScale, scale)}
         type="OBJ"
-        animation={animation}
+        animation={initialAnimation}
       />
     );
   }
