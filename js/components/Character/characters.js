@@ -129,6 +129,13 @@ const characters = {
     clickActions: [
       { type: WIN_COIN }
     ]
+  },
+  unicorn: {
+    model: require('./unicorn/model-triangulated.obj'),
+    material: require('./unicorn/materials.mtl'),
+    initialScale: [2, 2, 2],
+    offset: [0, -2, 0],
+    clickActions: []
   }
 };
 

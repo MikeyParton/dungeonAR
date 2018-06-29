@@ -15,9 +15,10 @@ const InitialARScene = require('./js/HelloWorldSceneAR');
 
 export default class ViroSample extends Component {
   state = {
-    play : false,
-    sharedProps : sharedProps,
-    coins: 0
+    play: false,
+    sharedProps: sharedProps,
+    coins: 0,
+    hearts: 5
   }
 
   play = () => {
@@ -34,6 +35,22 @@ export default class ViroSample extends Component {
     let { coins } = this.state
     coins--
     this.setState({ coins })
+  }
+
+  winHeart = () => {
+    let { hearts } = this.state
+    if(hearts <= 15) {
+      hearts++
+    }
+    this.setState({ hearts })
+  }
+
+  loseHeart = () => {
+    let { hearts } = this.state
+    if(hearts >= 0) {
+      hearts--
+    }
+    this.setState({ hearts })
   }
 
   render() {
@@ -60,6 +77,17 @@ export default class ViroSample extends Component {
   }
 
   renderScene = () => {
+    let hearts = [];
+      for(var i=0; i<this.state.hearts; i++){
+          hearts.push(
+              (<View key={i}>
+                <Image
+                  style={{width: 16, height: 16 }}
+                  source={require('./js/components/GameInterface/heart.png')}
+                />
+              </View>)
+          );
+      }
     return (
       <View style={{ flex: 1 }}>
         <View style={{ backgroundColor: "black", alignItems: 'center', height:80, padding: 10 }}>
@@ -67,12 +95,8 @@ export default class ViroSample extends Component {
             style={{width: "30%", height: "30%", marginBottom: 10}}
             source={require('./js/components/GameInterface/stats1.png')}
           />
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Image
-              style={{width: 16, height: 16 }}
-              source={require('./js/components/GameInterface/heart.png')}
-            />
-            <View style={{ backgroundColor: "red", height:10, width:'50%', marginLeft:10, margin:2, borderWidth:1, borderColor:'white' }} />
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
+            {hearts}
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Image
@@ -88,7 +112,9 @@ export default class ViroSample extends Component {
               passProps: {
                 coins: this.state.coins,
                 winCoin: this.winCoin,
-                loseCoin: this.loseCoin
+                loseCoin: this.loseCoin,
+                winHeart: this.winHeart,
+                loseHeart: this.loseHeart
               }
             }}
           />
