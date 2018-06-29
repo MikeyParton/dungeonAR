@@ -160,6 +160,11 @@ const characters = {
     material: require('./unicorn/materials.mtl'),
     initialScale: [4, 4, 4],
     offset: [0, -2, 0],
+    animation: {
+      name:'rotateCoin',
+      run: true,
+      loop: true
+    },
     clickActions: [
       {
         type: SAY,
@@ -182,8 +187,13 @@ const characters = {
   poop: {
     model: require('./poop/model-triangulated.obj'),
     material: require('./poop/materials.mtl'),
-    initialScale: [2, 2, 2],
+    initialScale: [4, 4, 4],
     offset: [0, -2, 0],
+    animation: {
+      name:'rotateCoin',
+      run: true,
+      loop: true
+    },
     clickActions: [
       {
         type: SAY,
