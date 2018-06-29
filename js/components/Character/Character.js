@@ -41,7 +41,6 @@ export default class Character extends Component {
       const postitionDiff = subtractArrays(position, swipeOrigin)
       const swipeDuration = swipeEndTime - swipeStartTime
 
-      // Swipes must be less than 250ms to register
       if (swipeDuration < SWIPE_DURATION_THRESHOLD) {
         if (postitionDiff[1] > SWIPE_DISTANCE_THRESHOLD) {
           swipeDirection = UP
@@ -62,21 +61,20 @@ export default class Character extends Component {
       return
     }
 
+    if (swipeDirection == UP) {
+      return
+    }
+
     if (swipeDirection == DOWN) {
       this.props.dismiss()
       return
     }
 
-    // Dismiss after drag
-    if (this.state.dragging) {
-      this.props.dismiss()
-      this.setState({ dragging: false })
-      return
-    }
+    const availableActions =this.character.clickActions
+    if (!availableActions) return
 
     // Pick a random clickAction
-    const actions = Object.values(this.character.clickActions)
-    const { text, type, options } = randomElement(actions)
+    const { text, type, options } = randomElement(Object.values(availableActions))
 
     switch (type) {
       case SAY:
