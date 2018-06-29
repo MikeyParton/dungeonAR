@@ -20,7 +20,7 @@ import Character from './components/Character/Character';
 import characters from './components/Character/characters';
 import Sticker from './components/Sticker/Sticker';
 
-const characterNames = Object.keys(characters)
+let characterNames = Object.keys(characters).filter(c => c !== 'coin')
 
 export default class HelloWorldSceneAR extends Component {
   state = {
@@ -34,7 +34,6 @@ export default class HelloWorldSceneAR extends Component {
       characterIndex = 0
     }
 
-    console.log(characterIndex)
     this.setState({ characterIndex })
   }
 
