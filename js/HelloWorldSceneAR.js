@@ -16,6 +16,7 @@ import {
   ViroSpotLight
 } from 'react-viro';
 
+import Video from './components/Video/Video';
 import Character from './components/Character/Character';
 import characters from './components/Character/characters';
 import Sticker from './components/Sticker/Sticker';
@@ -49,7 +50,12 @@ export default class HelloWorldSceneAR extends Component {
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
         <ViroAmbientLight color="#FFFFFF" intensity={400} />
-        <Sticker />
+        <Video />
+        {/*<Sticker
+          loseCoin={this.props.loseCoin}
+          winHeart={this.props.winHeart}
+          loseHeart={this.props.loseHeart}
+        />*/}
         <Character
           name={characterNames[this.state.characterIndex]}
           position={[0, 0, -10]}

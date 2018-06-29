@@ -65,6 +65,9 @@ export default class Sticker extends Component {
             onFinish: this.handleFinish,
             run: this.state.animate
           }}
+          loseCoin={this.props.loseCoin}
+          winHeart={this.props.winHeart}
+          loseHeart={this.props.loseHeart}
           dismiss={this.handleDismiss}
           position={[1, 1, -10]}
           name={this.state.name}
