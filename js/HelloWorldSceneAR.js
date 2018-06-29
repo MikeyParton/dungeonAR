@@ -72,6 +72,7 @@ export default class HelloWorldSceneAR extends Component {
           characterName === "coin"
             ? this.state.coins.map((pos, index) => (
               <Character
+                key={index}
                 name={"coin"}
                 position={pos}
                 winCoin={this.props.winCoin}

@@ -160,11 +160,6 @@ const characters = {
     material: require('./unicorn/materials.mtl'),
     initialScale: [5, 5, 5],
     offset: [0, -2, 0],
-    animation: {
-      name:'rotateCoin',
-      run: true,
-      loop: true
-    },
     clickActions: [
       {
         type: SAY,
