@@ -158,7 +158,7 @@ const characters = {
   unicorn: {
     model: require('./unicorn/model-triangulated.obj'),
     material: require('./unicorn/materials.mtl'),
-    initialScale: [4, 4, 4],
+    initialScale: [5, 5, 5],
     offset: [0, -2, 0],
     clickActions: [
       {

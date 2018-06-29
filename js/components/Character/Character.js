@@ -5,7 +5,7 @@ import characters, { SAY, WIN_COIN, LOSE_COIN, WIN_MORALE, LOSE_MORALE } from '.
 import { randomElement, sumArrays, multiplyArrays, subtractArrays } from 'js/helpers'
 
 const SWIPE_DURATION_THRESHOLD = 250
-const SWIPE_DISTANCE_THRESHOLD = 1
+const SWIPE_DISTANCE_THRESHOLD = 0.5
 const UP = 'UP'
 const DOWN = 'DOWN'
 
