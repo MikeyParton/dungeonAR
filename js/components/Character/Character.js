@@ -111,6 +111,8 @@ export default class Character extends Component {
         break;
       default:
     }
+
+    this.props.hackyAfterClick && this.props.hackyAfterClick()
   }
 
   render() {

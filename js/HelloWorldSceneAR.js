@@ -20,11 +20,23 @@ import Character from './components/Character/Character';
 import characters from './components/Character/characters';
 import Sticker from './components/Sticker/Sticker';
 
-let characterNames = Object.keys(characters).filter(c => c !== 'coin')
+let characterNames = Object.keys(characters)
 
 export default class HelloWorldSceneAR extends Component {
   state = {
-    characterIndex: 0
+    characterIndex: 0,
+    coins: [
+      [0, 0, -8],
+      [0, -2, -10],
+      [2, -3, -10],
+      [-2, 1, -10],
+      [-2, 5, -10]
+    ]
+  }
+
+  removeCoin = (indexToRemove) => {
+    const newCoins = this.state.coins.filter((item, index) => index !== indexToRemove)
+    this.setState({ coins: newCoins })
   }
 
   nextCharacter = () => {
@@ -46,24 +58,44 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   render() {
+    const characterName = characterNames[this.state.characterIndex]
+
+    if (characterName === "coin" && this.state.coins.length === 0) {
+      this.nextCharacter()
+    }
+
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
         <ViroAmbientLight color="#FFFFFF" intensity={400} />
         <Sticker />
-        <Character
-          name={characterNames[this.state.characterIndex]}
-          position={[0, 0, -10]}
-          loseCoin={this.props.loseCoin}
-          dismiss={this.nextCharacter}
-          winHeart={this.props.winHeart}
-          loseHeart={this.props.loseHeart}
-        />
-        <Character
-          name="coin"
-          position={[0, 0, -8]}
-          winCoin={this.props.winCoin}
-          loseCoin={this.props.loseCoin}
-        />
+        {
+          characterName === "coin"
+            ? this.state.coins.map((pos, index) => (
+              <Character
+                name={"coin"}
+                position={pos}
+                winCoin={this.props.winCoin}
+                loseCoin={this.props.loseCoin}
+                dismiss={this.nextCharacter}
+                winHeart={this.props.winHeart}
+                loseHeart={this.props.loseHeart}
+                hackyAfterClick={() => this.removeCoin(index)}
+              />
+            ))
+            : (
+              <React.Fragment>
+                <Character
+                  name={characterName}
+                  position={[0, 0, -8]}
+                  winCoin={this.props.winCoin}
+                  loseCoin={this.props.loseCoin}
+                  dismiss={this.nextCharacter}
+                  winHeart={this.props.winHeart}
+                  loseHeart={this.props.loseHeart}
+                />
+              </React.Fragment>
+            )
+        }
        </ViroARScene>
     )
   }
