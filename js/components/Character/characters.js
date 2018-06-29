@@ -101,17 +101,42 @@ const characters = {
     clickActions: [
       {
         type: SAY,
-        text: "Jae says ....",
+        text: "Jae says: I like unicorns",
         options: [
           {
             type: WIN_MORALE,
-            text: ".....",
-            response: "....."
+            text: "Unicorns are cool",
+            response: "Jae says: I know right!"
           },
           {
             type: LOSE_MORALE,
-            text: "....",
-            response: "...."
+            text: "Unicorns are dumb",
+            response: "Jae says: You're dumb!"
+          },
+        ]
+      }
+    ]
+  },
+  pat: {
+    model: require('./pat/pat.obj'),
+    material: require('./pat/pat.mtl'),
+    offset: [0, -10, 0],
+    rotationOffset: [270, 0, 0],
+    initialScale: [.1, .1, .1],
+    clickActions: [
+      {
+        type: SAY,
+        text: "Pat says: Have you seen my new Nikes ",
+        options: [
+          {
+            type: WIN_MORALE,
+            text: "Yeah, they're fresh to death",
+            response: "Pat says: Thanks!"
+          },
+          {
+            type: LOSE_MORALE,
+            text: "Aren't you Steve Jobs",
+            response: "Pat says: Shutup, I don't look anything like him"
           },
         ]
       }
